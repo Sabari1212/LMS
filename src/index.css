@@ -3,3 +3,11 @@
 .home{
     background-color: rgb(0, 68, 255);
 }
+.Logong{
+     background:"transparent";
+    /* speed :"1"; */
+    width: 300px; 
+    height: 300px;
+    direction:"1";
+    /* playMode="normal" loop controls autoplay; */
+}

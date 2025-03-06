@@ -23,24 +23,24 @@ const Login = () => {
         {signup ?
         <div className='flex flex-col lg:w-1/3 p-5 border-1 border-gray-300 rounded-md gap-4 mx-5 md:mx-0 '>
             <h1 className='font-bold'>Signup</h1>
-            <h1>Create a new account and click signup when you're done.</h1>
+            <h1 className='text-center lg:text-left'>Create a new account and click signup when you're done.</h1>
             <label className='font-bold'>Name</label>
-            <input type='text' placeholder='Enter your name'></input>
+            <input type='text' placeholder='Enter your name' className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
             <label className='font-bold'>Email</label>
-            <input type='email' placeholder='Enter your email'></input>
+            <input type='email' placeholder='Enter your email' className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
             <label className='font-bold'>Password</label>
-            <input type='password' placeholder='Enter your password'></input>
+            <input type='password' placeholder='Enter your password' className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
             <button className='bg-gray-800 p-2 w-max rounded-md text-white '>Login</button>
 
         </div>
         :
         <div className='flex flex-col lg:w-1/3 p-5 border-1 border-gray-300 rounded-md gap-7 mx-5 md:mx-0 '>
         <h1 className='font-bold'>Login</h1>
-        <h1>Login your password here.After signup ,you'll be logged in.</h1>
+        <h1 className='text-center lg:text-left'>Login your password here.After signup ,you'll be logged in.</h1>
         <label className='font-bold'>Email</label>
-        <input type='email' placeholder='Enter your email'></input>
+        <input type='email' placeholder='Enter your email'  className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
         <label className='font-bold'>Password</label>
-        <input type='password' placeholder='Enter your password'></input>
+        <input type='password' placeholder='Enter your password'  className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
         <button className='bg-gray-800 p-2 w-max rounded-md text-white '>Login</button>
 
     </div>

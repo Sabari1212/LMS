@@ -7,14 +7,19 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "host": "vite --host"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.0",
     "@tailwindcss/vite": "^4.0.9",
+    "lottie-react": "^2.4.1",
+    "lottie-web": "^5.12.2",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+    "react-router-dom": "^7.2.0",
     "tailwindcss": "^4.0.9"
   },
   "devDependencies": {
