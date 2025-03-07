@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Lottie from 'lottie-react';
-import Catlodingc from '../catloding.json'
+import Catlodingc from '../eqwAb3kl6c.json'
 const Home = () => {
   const [query, setQuery] = useState("");
-  const [getbackdata, setgetbackdata] = useState(true);
+  const [getbackdata, setgetbackdata] = useState(false)
 
   const handleSearch = () => {
     console.log("Searching for:", query);
     // Implement API call or filtering logic here
   };
-
+  
   return (
     <div>
       <div className="flex flex-col lg:items-center justify-center h-[350px] mt-10 bg-blue-500 text-white gap-3 px-2">
@@ -110,8 +110,9 @@ const Home = () => {
 
       </div> :
         <div>
-          <div className='w-80 justify-self-center '>
-            <Lottie animationData={Catlodingc} size={20}/>
+          <div className=' w-60 justify-self-center '>
+            <Lottie animationData={Catlodingc} size={10}/>
+            <h1 className='text-center text-2xl font-bold'>Loading...</h1>
                
           </div>
         </div>}
