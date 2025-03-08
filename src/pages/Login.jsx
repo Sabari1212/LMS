@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setUsers } from '../slice/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+    const navigate=useNavigate()
     const dispatch=useDispatch()
     const [signup,setSignup]=useState(true)
 
@@ -57,18 +59,21 @@ const Login = () => {
             <input type='email' placeholder='Enter your email' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' name='email' value={signupForm.email} onChange={handleSignupForm}></input>
             <label className='font-bold'>Password</label>
             <input type='password' placeholder='Enter your password' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' name='pw' value={signupForm.pw} onChange={handleSignupForm}></input>
-            <button className='bg-gray-800 p-2 w-max rounded-md text-white ' onClick={handleSignup}>Login</button>
+            <button className='bg-blue-800 p-2 w-max rounded-md text-white  ml-auto' onClick={handleSignup}>Signup</button>
 
         </div>
         :
-        <div className='flex flex-col lg:w-1/3 p-5 border-1 border-gray-300 rounded-md gap-7 mx-5 md:mx-0 '>
+        <div className='flex flex-col lg:w-1/3 p-5 border-1 border-gray-300 rounded-md gap-6 mx-5 md:mx-0 '>
         <h1 className='font-bold'>Login</h1>
         <h1 className='text-center lg:text-left'>Login your password here.After signup ,you'll be logged in.</h1>
         <label className='font-bold'>Email</label>
         <input type='email' placeholder='Enter your email'  className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
         <label className='font-bold'>Password</label>
         <input type='password' placeholder='Enter your password'  className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
-        <button className='bg-gray-800 p-2 w-max rounded-md text-white '>Login</button>
+        <div className='flex justify-between py-5'>
+        <button onClick={()=>navigate("/forget")} className='text-right text-blue-700 font-bold'>Forget Password?</button>
+        <button className='bg-blue-800 p-2 w-max rounded-md text-white '>Login</button>
+        </div>
 
     </div>
 }
