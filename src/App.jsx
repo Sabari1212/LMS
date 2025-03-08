@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import HomeLayout from './layout/HomeLayout'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Password from './components/Password'
+import ChangePassword from './components/ChangePassword'
 
 const App = () => {
   return (
@@ -15,7 +16,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomeLayout><Home /></HomeLayout>} />
           <Route path='/login' element={<HomeLayout><Login /></HomeLayout>} />
-          <Route path ='/forget' element={<HomeLayout><Password/></HomeLayout>}></Route>
+          <Route path ='/forgetpw' element={<HomeLayout><Password/></HomeLayout>}></Route>
+          <Route path ='/changepw' element={<HomeLayout><ChangePassword/></HomeLayout>}></Route>
 
         </Routes>
       </BrowserRouter>
