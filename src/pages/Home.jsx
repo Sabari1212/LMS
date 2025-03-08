@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import Lottie from 'lottie-react';
 import Catlodingc from '../eqwAb3kl6c.json'
+import { useSelector } from 'react-redux';
 const Home = () => {
+  const users=useSelector((state)=>state.userInfo.users)
+  console.log(users)
   const [query, setQuery] = useState("");
   const [getbackdata, setgetbackdata] = useState(false)
 
