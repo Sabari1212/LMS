@@ -2,37 +2,84 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setUsers } from '../slice/userSlice'
 import { useNavigate } from 'react-router-dom'
+import { Loginbk,Sendotp ,Register} from '../Spring'
 
 const Login = () => {
     const [alert,setAlert]=useState(false)
-     const [otp,setOtp]=useState(false)
+    
     const navigate=useNavigate()
     const dispatch=useDispatch()
     const [signup,setSignup]=useState(true)
 
-    const [signupForm,setSignupForm]=useState({
-        email:"",
-        name:"",
-        pw:""
-    })
 
-    function handleSignupForm(e){
-        setSignupForm({...signupForm,[e.target.name]:e.target.value})
+    const [Togal, setTogal] = useState("");
 
+    const [name, setname] = useState("");
+    const [username, setusername] = useState("");
+    const [password, setpassword] = useState("");
+    const [otp,setOtp]=useState("");
+    const [role,setrole]=useState("USER");
+    const [Message,setMessage]=useState("");
+    const [verfidOTP,setverfidOTP]=useState("");
+  
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const auth = { username, password }; // Encode username:password
+          var respon =await Loginbk(auth);
+          console.log(respon.data);
+        //   console.log(auth);
     }
-    function handleSignup(){
+    // const [signupForm,setSignupForm]=useState({
+    //     email:"",
+    //     name:"",
+    //     pw:""
+    // })
+
+    // function handleSignupForm(e){
+    //     setSignupForm({...signupForm,[e.target.name]:e.target.value})
+
+    // }
+   async function RegOTPsent(){
+    try{
+        var Register="Register";
+        var respon=await Sendotp(username,Register);
+        setTogal(respon)
+        setverfidOTP("")
+        setMessage("")
+        
        
-        dispatch(setUsers(signupForm))
-        setSignupForm({
-            name:"",
-            email:"",
-            pw:""
-
-            
+    }catch(error){
+          console.log(error.response.data);
+          setMessage(error.response.data)
+          setTogal("")
+    }    
+}
+    async function handleSignup(){
+       
+        // dispatch(setUsers(signupForm))
+       
+        try{
+             var regAlldata = {name,username,password,otp,role};
+        var respo=await Register(regAlldata);
+        console.log(respo.data)
+        setname("");
+        setusername("")
+        setpassword("")
+        setOtp("")
+        setTogal(false);
+        setAlert(true);
+        setSignup(false);
+        
+       
+       
+    
+  
+        
+        }catch(error){
+            console.log(error.response.data);
+            setverfidOTP(error.response.data);
         }
-        )
-        setAlert(true)
-
+       
     }
   return (
     <div className='flex flex-col gap-5 justify-center h-screen items-center   '>
@@ -46,28 +93,29 @@ const Login = () => {
                 <li><button onClick={()=>setSignup(false)} className=' px-18 py-1'>Login</button></li>:
                 <li><button onClick={()=>setSignup(false)} className='  bg-white px-18 rounded-md  py-1'>Login</button></li>
             }
-
-
-                
             </ul>
-
         </div>
         {signup ?
         <div className='flex flex-col lg:w-1/3 p-5 border-1 border-gray-300 rounded-md gap-3 mx-5 md:mx-0 '>
             <h1 className='font-bold text-2xl'>Signup</h1>
-            <h1 className='text-center lg:text-left'>Create a new account and click signup when you're done.</h1>
+            {Message ?
+            <h1 className='text-center lg:text-left text-red-600 font-semibold'>{Message}</h1>:
+            <h1 className='text-center lg:text-left'>Create a new account and click signup when you're done</h1>}
             <label className='font-bold'>Name</label>
-            <input type='text' placeholder='Enter your name' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' name='name' value={signupForm.name} onChange={handleSignupForm}></input>
+            <input type='text' placeholder='Enter your name' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' name='name' value={name} onChange={(e) => setname(e.target.value)}></input>
             <label className='font-bold'>Password</label>
-            <input type='password' placeholder='Enter your password' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' name='pw' value={signupForm.pw} onChange={handleSignupForm}></input>
+            <input type='password' placeholder='Enter your password' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' name='pw' value={password} onChange={(e) => setpassword(e.target.value)}></input>
             <label className='font-bold'>Email</label>
-            <input type='email' placeholder='Enter your email' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' name='email' value={signupForm.email} onChange={handleSignupForm}></input>
+            <input type='email' placeholder='Enter your email' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' name='email' value={username} onChange={(e) => setusername(e.target.value)}></input>
            
-            <button className='bg-blue-800 p-1 w-max rounded-md text-white  ml-auto' onClick={()=>setOtp(true)}>Send Otp</button>
-            {otp &&
-    <div className='flex flex-col gap-2  '>
+            <button className='bg-blue-800 p-1 w-max rounded-md text-white  ml-auto' onClick={RegOTPsent}>Send Otp</button>
+            {Togal &&
+    <div className='flex flex-col gap-2'>
+        {verfidOTP ?
+        <h1 className='font-bold text-red-500'>{verfidOTP}</h1>:
+        <h1 className='font-bold text-green-500'>{Togal.data}</h1>}
       <label className='font-bold'>Enter OTP</label>
-      <input type='text' placeholder='Enter your Otp' className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
+      <input type='text' placeholder='Enter your Otp' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' value={otp} onChange={(e) => setOtp(e.target.value)}></input>
       <button className='bg-blue-800 p-2 w-max rounded-md text-white ml-auto' onClick={handleSignup}>Submit</button>
       </div>
     }
@@ -78,12 +126,12 @@ const Login = () => {
         <h1 className='font-bold text-2xl'>Login</h1>
         <h1 className='text-center lg:text-left'>Login your password here.After signup ,you'll be logged in.</h1>
         <label className='font-bold'>Email</label>
-        <input type='email' placeholder='Enter your email'  className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
+        <input type='email' placeholder='Enter your email'  className='border-gray-300 border-1 h-[30px] p-2 rounded-md' value={username} onChange={(e) => setusername(e.target.value)}></input>
         <label className='font-bold'>Password</label>
-        <input type='password' placeholder='Enter your password'  className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
+        <input type='password' placeholder='Enter your password'  className='border-gray-300 border-1 h-[30px] p-2 rounded-md' value={password} onChange={(e) => setpassword(e.target.value)}></input>
         <div className='flex justify-between py-5'>
-        <button onClick={()=>navigate("/forgetpw")} className='text-right text-blue-700 font-bold'>Forget Password?</button>
-        <button className='bg-blue-800 p-2 w-max rounded-md text-white '>Login</button>
+        <button onClick={()=>navigate("/forgetpw")} className='text-right text-blue-700 font-bold' >Forget Password?</button>
+        <button className='bg-blue-800 p-2 w-max rounded-md text-white ' onClick={handleLogin}>Login</button>
         </div>
 
     </div>
