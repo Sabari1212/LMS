@@ -16,7 +16,7 @@ const ChangePassword = () => {
   
       <label className='font-bold'>Confirm Password</label>
       <input type='text' placeholder='Enter your password again' className='border-gray-300 border-1 h-[30px] p-2 rounded-md'></input>
-      <button className='bg-blue-800 p-2 w-max rounded-md text-white ml-auto' onClick={()=>setAlert(true)}>Submit</button>
+      <button className='bg-blue-800 p-2 w-max rounded-md text-white ml-auto hover:scale-105 duration-500 cursor-pointer active:bg-green-400' onClick={()=>setAlert(true)}>Submit</button>
       </div>
   
     

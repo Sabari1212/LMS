@@ -55,12 +55,12 @@ const Password = () => {
         <label className='font-bold'>Email</label>
 
         <input type='email' placeholder='Enter your email' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' value={username} onChange={(e) => setusername(e.target.value)}></input>
-        <button className='bg-blue-800 p-1 w-max rounded-md text-white ml-auto' onClick={Forgetsendotp}>Send OTP</button>
+        <button className='bg-blue-800 p-1 w-max rounded-md text-white ml-auto hover:scale-105 duration-500 cursor-pointer active:bg-green-600' onClick={Forgetsendotp}>Send OTP</button>
         {cond &&
           <div className='flex flex-col gap-3  '>
             <label className='font-bold'>Enter OTP</label>
             <input type='text' placeholder='Enter your Otp' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' value={Otp} onChange={(e) => setOtp(e.target.value)}></input>
-            <button className='bg-blue-800 p-2 w-max rounded-md text-white ml-auto' onClick={handleSubmit}>Submit</button>
+            <button className='bg-blue-800 p-2 w-max rounded-md text-white ml-auto hover:scale-105 duration-500 cursor-pointer active:bg-green-600' onClick={handleSubmit}>Submit</button>
           </div>
         }
       </div>

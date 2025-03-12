@@ -22,12 +22,12 @@ const Navbar = () => {
         </div>
         <div>
             <ul className='flex gap-2 lg:gap-5'>
-                <li><button className='border-1 border-gray-300 p-1 bg-gray-800 text-white rounded-md hover:scale-110 cursor-pointer' onClick={handleClick}>Signup</button></li>
-                <li><button className=' hidden lg:block border-1 border-gray-300 p-1   rounded-md hover:scale-110 cursor-pointer' onClick={handleClick}>Login</button></li>
+                <li><button className='border-1 border-gray-300 p-1 bg-gray-800 text-white rounded-md hover:scale-110 cursor-pointer duration-500' onClick={handleClick}>Signup</button></li>
+                <li><button className=' hidden lg:block border-1 border-gray-300 p-1   rounded-md hover:scale-110 cursor-pointer duration-500' onClick={handleClick}>Login</button></li>
                 
 
- {theme ?<li > <button onClick={()=>setTheme(!theme)} className='border-1 border-gray-300 p-1 text-2xl  rounded-md hover:scale-110 cursor-pointer'><WiMoonAltFirstQuarter/></button></li>:
-<li><button onClick={()=>setTheme(!theme)} className='border-1 border-gray-300 p-1 text-2xl  rounded-md hover:scale-110 cursor-pointer'><WiMoonAltWaningCrescent1/></button></li>
+ {theme ?<li > <button onClick={()=>setTheme(!theme)} className='border-1 border-gray-300 p-1 text-2xl  rounded-md hover:scale-110 cursor-pointer duration-500'><WiMoonAltFirstQuarter/></button></li>:
+<li><button onClick={()=>setTheme(!theme)} className='border-1 border-gray-300 p-1 text-2xl  rounded-md hover:scale-110 cursor-pointer duration-500'><WiMoonAltWaningCrescent1/></button></li>
 }
 
             </ul>

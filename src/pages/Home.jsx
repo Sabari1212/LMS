@@ -6,7 +6,7 @@ const Home = () => {
   const users=useSelector((state)=>state.userInfo.users)
   console.log(users)
   const [query, setQuery] = useState("");
-  const [getbackdata, setgetbackdata] = useState(false)
+  const [getbackdata, setgetbackdata] = useState(true)
 
   const handleSearch = () => {
     console.log("Searching for:", query);
@@ -15,7 +15,7 @@ const Home = () => {
   
   return (
     <div>
-      <div className="flex flex-col lg:items-center justify-center h-[350px] mt-10 bg-blue-500 text-white gap-3 px-2">
+      <div className="flex flex-col lg:items-center justify-center h-[350px] mt-10 bg-blue-500 text-white gap-3 px-2 ">
         <h1 className="font-bold text-3xl pt-5 text-center">Find the Best Courses for You</h1>
         <p className="mb-4 text-black-400 text-center">Discover, Learn, and Upskill with our wide range of courses</p>
         <div className="flex items-center bg-white rounded-lg px-4 py-2 ">
