@@ -1,18 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Lottie from 'lottie-react';
 import Catlodingc from '../eqwAb3kl6c.json'
 import { useSelector } from 'react-redux';
+import course from '../assets/course.jpg'
+import { GetAllcourse } from '../SpringCourse';
 const Home = () => {
-  const users=useSelector((state)=>state.userInfo.users)
+  const users = useSelector((state) => state.userInfo.users)
   console.log(users)
   const [query, setQuery] = useState("");
-  const [getbackdata, setgetbackdata] = useState(true)
+  const [getbackdata, setgetbackdata] = useState("")
+
+  useEffect(() => {
+    getrallcour()
+  },[])
+
+ async function getrallcour() {
+    var getallcou = await GetAllcourse();
+    setgetbackdata(getallcou.data);
+    console.log(getallcou.data)
+      }
 
   const handleSearch = () => {
     console.log("Searching for:", query);
     // Implement API call or filtering logic here
   };
-  
+
   return (
     <div>
       <div className="flex flex-col lg:items-center justify-center h-[350px] mt-10 bg-blue-500 text-white gap-3 px-2 ">
@@ -26,97 +38,34 @@ const Home = () => {
       </div>
 
       {getbackdata ? <div className='flex flex-wrap justify-center overflow-y-auto h-[330px]'>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer md:w-1/7 h-[250px] flex flex-col gap-1 m-2 p-2 '>
+        {getbackdata.map((Alldata)=>(
+          <div className=' hover: cursor-pointer md:w-1/6 h-[250px] hover:scale-105 duration-500 shadow-xl shadow-black flex flex-col gap-1 m-2 p-2 rounded-md '>
 
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
-
-        </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer  md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
-
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
+          <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={`data:${Alldata.course_image_name};base64,${Alldata.data}`}></img>
+          
+          <h1 className='text-left font-bold'>{Alldata.course_name}</h1>
+          <h1 className='text-left text-gray-400 '>{Alldata.course_Provider}</h1>
+          <h1 className='text-right font-bold'>₹ {Alldata.price}</h1>
 
         </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer   md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
+        ))}
+        
+         <div className=' hover: cursor-pointer md:w-1/6 h-[250px] hover:scale-105 duration-500 shadow-xl shadow-black flex flex-col gap-1 m-2 p-2 rounded-md '>
 
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
-
-        </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer   md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
-
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
+          <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
+          <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>
+          <h1 className='text-left text-gray-400 '>by tobi sabi</h1>
+          <h1 className='text-right font-bold'>1,499</h1>
 
         </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer   md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
-
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
-
-        </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer  md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
-
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
-
-        </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer   md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
-
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
-
-        </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer   md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
-
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
-
-        </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer   md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
-
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
-
-        </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer   md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
-
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
-
-        </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer  md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
-
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
-
-        </div>
-        <div className='border-1 border-blue-400 hover:shadow-2xl cursor-pointer   md:w-1/7 h-[250px] flex flex-col gap-2 m-2 p-2 '>
-
-          <img className='h-44 w-44 mx-auto'></img>
-          <h1 className='text-center'>MERN STACK DEVELOPMENT</h1>
-          <h1 className='text-center'>Price : 1499</h1>
-
-        </div>
-
+        
+        
       </div> :
         <div>
           <div className=' w-60 justify-self-center '>
-            <Lottie animationData={Catlodingc} size={10}/>
+            <Lottie animationData={Catlodingc} size={10} />
             <h1 className='text-center text-2xl font-bold'>Loading...</h1>
-               
+
           </div>
         </div>}
     </div>

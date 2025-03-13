@@ -1,5 +1,6 @@
 import axios from "axios";
 var url = "http://localhost:8080/Login";
+
 function Loginbk(auth) {
     return axios.post(url + "/public/Login", auth);
 }
@@ -12,5 +13,6 @@ function Register(Alldata) {
 function Verify_OTP(otp) {
     return axios.post(url + "/verify_OTP?otp=" + otp);
 }
+
 export { Loginbk, Sendotp ,Register,Verify_OTP}
 // http://localhost:8080/Login/verify_OTP?otp=347946

@@ -6,6 +6,7 @@ import HomeLayout from './layout/HomeLayout'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Password from './components/Password'
 import ChangePassword from './components/ChangePassword'
+import { PostAllcou } from './Admin/PostAlldata'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path='/login' element={<HomeLayout><Login /></HomeLayout>} />
           <Route path ='/forgetpw' element={<HomeLayout><Password/></HomeLayout>}></Route>
           <Route path ='/changepw' element={<HomeLayout><ChangePassword/></HomeLayout>}></Route>
+          <Route path ='/adminpostdata' element={<HomeLayout><PostAllcou/></HomeLayout>}></Route>
 
         </Routes>
       </BrowserRouter>
