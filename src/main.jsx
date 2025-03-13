@@ -6,12 +6,13 @@ import Password from './components/Password.jsx'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 import Dashboard from './pages/Dashboard.jsx'
+import CourseBuy from './pages/CourseBuy.jsx'
 // npm create vite@latest
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
      <App /> 
-     {/* <Dashboard/> */}
+    
     
 
 

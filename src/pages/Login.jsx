@@ -27,6 +27,7 @@ const Login = () => {
         const auth = { username, password }; // Encode username:password
           var respon =await Loginbk(auth);
           console.log(respon.data);
+          navigate("/userdashboard")
         //   console.log(auth);
     }
     // const [signupForm,setSignupForm]=useState({
