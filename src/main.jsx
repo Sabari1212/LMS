@@ -10,8 +10,8 @@ import Dashboard from './pages/Dashboard.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-     {/* <App />  */}
-     <Dashboard/>
+     <App /> 
+     {/* <Dashboard/> */}
     
 
 
