@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setUsers } from '../slice/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { Loginbk,Sendotp ,Register} from '../Spring'
+import { StroageTockin } from '../localStroage'
 
 const Login = () => {
     const [alert,setAlert]=useState(false)
@@ -24,10 +25,18 @@ const Login = () => {
   
     const handleLogin = async (e) => {
         e.preventDefault();
-        const auth = { username, password }; // Encode username:password
+        try{
+             const auth = { username, password }; // Encode username:password
           var respon =await Loginbk(auth);
-          console.log(respon.data);
-          navigate("/userdashboard")
+          if(respon.data){
+            console.log(respon.data);
+            StroageTockin(respon.data)
+            navigate("/userdashboard")
+          }
+        }catch(error){
+            console.log(error.message);
+            // alert(error.message);
+        } 
         //   console.log(auth);
     }
     // const [signupForm,setSignupForm]=useState({
