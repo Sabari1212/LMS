@@ -4,7 +4,10 @@ import Catlodingc from '../eqwAb3kl6c.json'
 import { useSelector } from 'react-redux';
 import course from '../assets/course.jpg'
 import { GetAllcourse } from '../SpringCourse';
+import { useNavigate } from 'react-router-dom';
+
 const Home = () => {
+  const navigate=useNavigate();
   const users = useSelector((state) => state.userInfo.users)
   console.log(users)
   const [query, setQuery] = useState("");
@@ -21,9 +24,9 @@ const Home = () => {
       }
 
   const handleSearch = () => {
-    console.log("Searching for:", query);
-    // Implement API call or filtering logic here
+    navigate("/courseBuy")    // Implement API call or filtering logic here
   };
+  
 
   return (
     <div>
@@ -32,14 +35,14 @@ const Home = () => {
         <p className="mb-4 text-black-400 text-center">Discover, Learn, and Upskill with our wide range of courses</p>
         <div className="flex items-center bg-white rounded-lg px-4 py-2 ">
           <input type="text" placeholder="Search Courses" className="flex-grow  outline-none text-black  placeholder-gray-400" />
-          <button onClick={handleSearch} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg ml-2 ">Search</button>
+          <button  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg ml-2 ">Search</button>
         </div>
         <button className="mt-4 bg-white hover:bg-gray-200 text-blue-500 px-4 py-2 rounded-lg mx-auto md:mx-0">Explore Courses</button>
       </div>
 
       {getbackdata ? <div className='flex flex-wrap justify-center overflow-y-auto h-[330px]'>
         {getbackdata.map((Alldata)=>(
-          <div className=' hover: cursor-pointer md:w-1/6 h-[250px] hover:scale-105 duration-500 shadow-xl shadow-black flex flex-col gap-1 m-2 p-2 rounded-md '>
+          <div onClick={handleSearch}  className=' hover: cursor-pointer md:w-1/6 h-[250px] flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black  m-2 p-2 rounded-md '>
 
           <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={`data:${Alldata.course_image_name};base64,${Alldata.data}`}></img>
           
@@ -50,7 +53,7 @@ const Home = () => {
         </div>
         ))}
         
-         <div className=' hover: cursor-pointer md:w-1/6 h-[250px] hover:scale-105 duration-500 shadow-xl shadow-black flex flex-col gap-1 m-2 p-2 rounded-md '>
+         <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
 
           <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
           <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>
@@ -58,7 +61,6 @@ const Home = () => {
           <h1 className='text-right font-bold'>1,499</h1>
 
         </div>
-        
         
       </div> :
         <div>

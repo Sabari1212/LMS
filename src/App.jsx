@@ -7,6 +7,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Password from './components/Password'
 import ChangePassword from './components/ChangePassword'
 import { PostAllcou } from './Admin/PostAlldata'
+import Dashboard from './pages/Dashboard'
+import CourseBuy from './pages/CourseBuy'
+import UserLayout from './layout/UserLayout'
 
 const App = () => {
   return (
@@ -20,6 +23,8 @@ const App = () => {
           <Route path ='/forgetpw' element={<HomeLayout><Password/></HomeLayout>}></Route>
           <Route path ='/changepw' element={<HomeLayout><ChangePassword/></HomeLayout>}></Route>
           <Route path ='/adminpostdata' element={<HomeLayout><PostAllcou/></HomeLayout>}></Route>
+          <Route path ='/dashboard' element={<UserLayout><Dashboard/></UserLayout>}></Route>
+          <Route path ='/courseBuy' element={<UserLayout><CourseBuy/></UserLayout>}></Route>
 
         </Routes>
       </BrowserRouter>
