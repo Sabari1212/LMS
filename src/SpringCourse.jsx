@@ -24,7 +24,6 @@ function PostAllcourse(formData){
 }
 function GetAllcourse() {
     return axios.get(url + "/public/getCoruse_data");
-    
 }
 function Getuser1(token) {
     return  axios.get("http://localhost:8080/api/user/get", {headers: { Authorization: `Bearer ${token}`},});
