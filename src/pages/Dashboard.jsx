@@ -8,7 +8,11 @@ import { Getuser1,Getuser2 } from '../SpringCourse';
 import { Getlocalstorage } from '../localStroage';
 import { useNavigate } from 'react-router-dom'
 import Logo1 from "../assets/Logo1.png"
+import Logo2 from "../assets/about.png"
+import Logo3 from "../assets/hero.png"
 import course from '../assets/course.jpg'
+import { SlArrowRightCircle,SlArrowLeftCircle  } from "react-icons/sl";
+// import { } from "react-icons/sl";
 
 const Dashboard = () => {
   const [change,setChange]=useState(3)
@@ -49,14 +53,14 @@ const Dashboard = () => {
 
         </div>
       </div>
-     {change==1 && <div className='bg-green-200 lg:w-[80%] lg:flex lg:h-[40vh] justify-around items-center mx-auto mt-10 relative'>
+     {change==1 && <div className='bg-green-300 lg:w-[80%] lg:flex lg:h-[40vh] justify-around items-center mx-auto mt-10 relative'>
         <div className='lg:w-[30%] bg-white p-3 m-2 shadow-xl '>
           <h1 className='font-bold text-xl'>Slow and Steady</h1>
           <h1>Try learning just 5-10 minutes a day. <span className='text-blue-500 border-b-2 border-b-violet-500'>Continue your course </span>
           and reach your peak potential</h1>
           
-            <button className='absolute left-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(3)}>Left</button>
-            <button  className='absolute right-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(2)}>Rights</button>
+            <button className='absolute left-0 m-2 top-[50%] p-2 rounded-sm hover:scale-110 duration-300' onClick={()=>setChange(3)}><SlArrowLeftCircle size={30}/></button>
+            <button  className='absolute right-0 m-2 top-[50%] p-2 rounded-sm hover:scale-110 duration-300' onClick={()=>setChange(2)}><SlArrowRightCircle size={30}/></button>
           
 
         </div>
@@ -70,20 +74,20 @@ const Dashboard = () => {
       </div>
 }
 
-{change==2 && <div className='bg-violet-300 lg:w-[80%] lg:flex lg:h-[40vh] justify-around items-center mx-auto mt-10 relative'>
+{change==2 && <div className='bg-gray-400 lg:w-[80%] lg:flex lg:h-[40vh] justify-around items-center mx-auto mt-10 relative'>
         <div className='lg:w-[30%] bg-white p-3 m-2 shadow-xl '>
           <h1 className='font-bold text-xl'>Slow and Steady 2</h1>
           <h1>Try learning just 5-10 minutes a day. <span className='text-blue-500 border-b-2 border-b-violet-500'>Continue your course </span>
           and reach your peak potential</h1>
           
-            <button className='absolute left-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(1)}>Left</button>
-            <button  className='absolute right-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(3)}>Right</button>
+            <button className='absolute left-0 m-2 top-[50%] p-2 rounded-sm hover:scale-110 duration-300' onClick={()=>setChange(1)}><SlArrowLeftCircle size={30}/></button>
+            <button  className='absolute right-0 m-2 top-[50%] p-2 rounded-sm hover:scale-110 duration-300' onClick={()=>setChange(3)}><SlArrowRightCircle size={30}/></button>
           
 
         </div>
         
         <div>
-          <img className='h-52 w-52 mx-auto lg:mx-0' src={Logo1}></img>
+          <img className='h-72 w-80 mx-auto lg:mx-0' src={Logo2}></img>
 
         </div>
         
@@ -91,20 +95,20 @@ const Dashboard = () => {
       </div>
 }
 
-{change==3 && <div className='bg-yellow-200 lg:w-[80%] lg:flex lg:h-[40vh] justify-around items-center mx-auto mt-10 relative'>
+{change==3 && <div className='bg-violet-600 lg:w-[80%] lg:flex lg:h-[40vh] justify-around items-center mx-auto mt-10 relative'>
         <div className='lg:w-[30%] bg-white p-3 m-2 shadow-xl '>
           <h1 className='font-bold text-xl'>Slow and Steady 3</h1>
           <h1>Try learning just 5-10 minutes a day. <span className='text-blue-500 border-b-2 border-b-violet-500'>Continue your course </span>
           and reach your peak potential</h1>
           
-            <button className='absolute left-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(2)}>Left</button>
-            <button  className='absolute right-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(1)}>Right</button>
+            <button className='absolute left-0 m-2 top-[50%] p-2 rounded-sm hover:scale-110 duration-300' onClick={()=>setChange(2)}><SlArrowLeftCircle size={30}/></button>
+            <button  className='absolute right-0 m-2 top-[50%] p-2 rounded-sm hover:scale-110 duration-300' onClick={()=>setChange(1)}><SlArrowRightCircle size={30}/></button>
           
 
         </div>
         
         <div>
-          <img className='h-52 w-52 mx-auto lg:mx-0' src={Logo1}></img>
+          <img className='h-64 w-64 mx-auto lg:mx-0' src={Logo3}></img>
 
         </div>
         
