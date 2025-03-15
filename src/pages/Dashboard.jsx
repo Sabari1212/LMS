@@ -7,8 +7,11 @@ import { CgProfile } from "react-icons/cg";
 import { Getuser1,Getuser2 } from '../SpringCourse';
 import { Getlocalstorage } from '../localStroage';
 import { useNavigate } from 'react-router-dom'
+import Logo1 from "../assets/Logo1.png"
+import course from '../assets/course.jpg'
 
 const Dashboard = () => {
+  const [change,setChange]=useState(3)
     const navigate = useNavigate();
   var [AllUserData, setAllUserData] = useState("");
   var [AllUserData2, setAllUserData2] = useState("");
@@ -39,13 +42,145 @@ const Dashboard = () => {
 
         </div>
         <div className='flex flex-col gap-1'>
-          <h1 className='font-bold text-xl'>Welcome back, Yuvaraj</h1>
+          
           <h1 className='font-bold text-xl'>{AllUserData}</h1>
-          <h1 className='font-bold text-xl'>{AllUserData2}</h1>
+         
           <button className='text-violet-800 border-b border-b-violet-800'>Add occupation and Interests</button>
 
         </div>
       </div>
+     {change==1 && <div className='bg-green-200 lg:w-[80%] lg:flex lg:h-[40vh] justify-around items-center mx-auto mt-10 relative'>
+        <div className='lg:w-[30%] bg-white p-3 m-2 shadow-xl '>
+          <h1 className='font-bold text-xl'>Slow and Steady</h1>
+          <h1>Try learning just 5-10 minutes a day. <span className='text-blue-500 border-b-2 border-b-violet-500'>Continue your course </span>
+          and reach your peak potential</h1>
+          
+            <button className='absolute left-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(3)}>Left</button>
+            <button  className='absolute right-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(2)}>Rights</button>
+          
+
+        </div>
+        
+        <div>
+          <img className='h-52 w-52 mx-auto lg:mx-0' src={Logo1}></img>
+
+        </div>
+        
+        
+      </div>
+}
+
+{change==2 && <div className='bg-violet-300 lg:w-[80%] lg:flex lg:h-[40vh] justify-around items-center mx-auto mt-10 relative'>
+        <div className='lg:w-[30%] bg-white p-3 m-2 shadow-xl '>
+          <h1 className='font-bold text-xl'>Slow and Steady 2</h1>
+          <h1>Try learning just 5-10 minutes a day. <span className='text-blue-500 border-b-2 border-b-violet-500'>Continue your course </span>
+          and reach your peak potential</h1>
+          
+            <button className='absolute left-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(1)}>Left</button>
+            <button  className='absolute right-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(3)}>Right</button>
+          
+
+        </div>
+        
+        <div>
+          <img className='h-52 w-52 mx-auto lg:mx-0' src={Logo1}></img>
+
+        </div>
+        
+        
+      </div>
+}
+
+{change==3 && <div className='bg-yellow-200 lg:w-[80%] lg:flex lg:h-[40vh] justify-around items-center mx-auto mt-10 relative'>
+        <div className='lg:w-[30%] bg-white p-3 m-2 shadow-xl '>
+          <h1 className='font-bold text-xl'>Slow and Steady 3</h1>
+          <h1>Try learning just 5-10 minutes a day. <span className='text-blue-500 border-b-2 border-b-violet-500'>Continue your course </span>
+          and reach your peak potential</h1>
+          
+            <button className='absolute left-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(2)}>Left</button>
+            <button  className='absolute right-0 m-2 top-[50%] bg-white p-2 rounded-sm' onClick={()=>setChange(1)}>Right</button>
+          
+
+        </div>
+        
+        <div>
+          <img className='h-52 w-52 mx-auto lg:mx-0' src={Logo1}></img>
+
+        </div>
+        
+        
+      </div>
+}
+
+
+      <div className='flex flex-wrap justify-center overflow-y-auto h-[330px] mt-10'>
+
+       <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
+      
+                <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
+                <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>
+                <h1 className='text-left text-gray-400 '>by tobi sabi</h1>
+                <h1 className='text-right font-bold'>₹ 1,499</h1>
+      
+              </div>
+              <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
+      
+      <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
+      <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>
+      <h1 className='text-left text-gray-400 '>by tobi sabi</h1>
+      <h1 className='text-right font-bold'>₹ 1,499</h1>
+
+    </div>
+    <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
+      
+      <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
+      <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>
+      <h1 className='text-left text-gray-400 '>by tobi sabi</h1>
+      <h1 className='text-right font-bold'>₹ 1,499</h1>
+
+    </div>
+    <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
+      
+      <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
+      <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>
+      <h1 className='text-left text-gray-400 '>by tobi sabi</h1>
+      <h1 className='text-right font-bold'>₹ 1,499</h1>
+
+    </div>
+    <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
+      
+      <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
+      <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>
+      <h1 className='text-left text-gray-400 '>by tobi sabi</h1>
+      <h1 className='text-right font-bold'>₹ 1,499</h1>
+
+    </div>
+    <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
+      
+      <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
+      <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>
+      <h1 className='text-left text-gray-400 '>by tobi sabi</h1>
+      <h1 className='text-right font-bold'>₹ 1,499</h1>
+
+    </div>
+    <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
+      
+      <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
+      <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>
+      <h1 className='text-left text-gray-400 '>by tobi sabi</h1>
+      <h1 className='text-right font-bold'>₹ 1,499</h1>
+
+    </div>
+    <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
+      
+      <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
+      <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>
+      <h1 className='text-left text-gray-400 '>by tobi sabi</h1>
+      <h1 className='text-right font-bold'>₹ 1,499</h1>
+
+    </div>
+              </div>
+
 
     </div>
   )
