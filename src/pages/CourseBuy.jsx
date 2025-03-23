@@ -52,18 +52,19 @@ const CourseBuy = () => {
         <li>{users[0].what_you_learn2}</li>
         <li>{users[0].what_you_learn3}</li>
         <li>{users[0].what_you_learn4}</li>
-        <li>5dhdjdj sjkdlddd dkdld dkdkdkk</li>
-        <li>6dhdjdj sjkdldddd dkdld dkdkdkk</li>
-        <li>dhdjdj sjkddldd dkdld dkdkdkk</li>
+        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, sapiente?</li>
+        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, sapiente?</li>
+        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, sapiente?</li>
+        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, sapiente?</li>
+        
     </ul >
     <ul className='flex flex-col gap-1 list-disc'>
-        <li>1dhdjdj sjkdhdhldd dkdldbdhdj</li>
-        <li>2dhdjdj sjkddhdhdldd dkdld dkddhdkdkk</li>
-        <li>3dhdjdj sjkdldhddd dkdld dkddjdjkdkk</li>
-        <li>4dhdjdj sjkdaaldd dkdld dkdkdkk</li>
-        <li>5dhdjdj sjkdlddd dkdld dkdkdkk</li>
-        <li>6dhdjdj sjkdldddd dkdld dkdkdkk</li>
-        <li>dhdjdj sjkddldd dkdld dkdkdkk</li>
+    <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, sapiente?</li>
+        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, sapiente?</li>
+        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, sapiente?</li>
+        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, sapiente?</li>
+        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, sapiente?</li>
+        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, sapiente?</li>
     </ul>
     </div>
 </div>
