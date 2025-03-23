@@ -45,9 +45,6 @@ const Home = () => {
       }
 
     }
-
-    // 
-    //     Implement API call or filtering logic here
   };
 
 
@@ -67,7 +64,7 @@ const Home = () => {
         {getbackdata.map((Alldata) => (
           <div onClick={() => handleSearch(Alldata.id)} className=' hover: cursor-pointer md:w-1/6 h-[250px] flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black  m-2 p-2 rounded-md '>
 
-            <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={`data:${Alldata.course_image_name};base64,${Alldata.data}`}></img>
+            <img className='h-32 w-72 mx-auto border-1 border-gray-600' src={`data:${Alldata.course_image_name};base64,${Alldata.data}`}></img>
 
             <h1 className='text-left font-bold'>The Complete {Alldata.course_name} Developer</h1>
             <h1 className='text-left text-gray-400 '>{Alldata.course_Provider}</h1>
