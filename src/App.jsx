@@ -10,6 +10,7 @@ import UserLayout from './layout/UserLayout'
 import Dashboard from './pages/Dashboard'
 import CourseBuy from './pages/CourseBuy'
 import { PostAllcou } from './Admin/PostAlldata'
+import CourseVideo from './pages/CourseVideo'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path ='/userdashboard' element={<UserLayout><Dashboard/></UserLayout>}></Route>
           <Route path ='/coursebuy' element={<UserLayout><CourseBuy/></UserLayout>}></Route>
           <Route path ='/admin' element={<UserLayout><PostAllcou/></UserLayout>}></Route>
+          <Route path ='/course' element={<UserLayout><CourseVideo/></UserLayout>}></Route>
 
         </Routes>
       </BrowserRouter>

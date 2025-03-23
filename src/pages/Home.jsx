@@ -43,11 +43,13 @@ const Home = () => {
         dispatch(setUsers(getbackdata[i]))
         navigate("/courseBuy")
       }
-
     }
+<<<<<<< HEAD
+=======
+    // 
+    //     Implement API call or filtering logic here
+>>>>>>> 9fc8a7563c46b147707edb3d8a5e5995744fc5b1
   };
-
-
   return (
     <div>
       <div className="flex flex-col lg:items-center justify-center h-[350px] mt-10 bg-blue-500 text-white gap-3 px-2 ">
