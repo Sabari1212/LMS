@@ -36,6 +36,11 @@ function Getvideodata(token_and_videoname) {
     return axios.get(url+`/user/getvideodata/${token_and_videoname.Core_name}`, {headers: { Authorization: `Bearer ${token_and_videoname.tocken}`},});
     
 }
-// localhost:8080/api/user/getvideodata/HTML
+function Getonevideo(videonedata) { 
+    console.log(videonedata.Tocken);
+    return axios.get(`http://localhost:8080/api/user/Getvideo_data?parentFolderName=${videonedata.prefoldname}&childFolderName=${videonedata.chalfoldname}&url=${videonedata.url}` , {headers: { Authorization: `Bearer ${videonedata.Tocken}`},});
+    
+}//http://localhost:8080/api/public/Getvideo_data?parentFolderName=${prefoldname}&childFolderName=${chalfoldname}&url=${url}
+//http://localhost:8080/api/public/Getvideo_data?parentFolderName=HTML&childFolderName=html2&url=HTML_6-HTML-Lists.mp4
 
-export {GetAllcourse,PostAllcourse,Getuser1,Getuser2,Getvideodata}
+export {GetAllcourse,PostAllcourse,Getuser1,Getuser2,Getvideodata,Getonevideo}
