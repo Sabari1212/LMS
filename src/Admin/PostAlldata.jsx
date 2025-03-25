@@ -13,6 +13,9 @@ function PostAllcou(){
     const [what_you_learn3, setwhat_you_learn3] = useState('');
     const [what_you_learn4, setwhat_you_learn4] = useState('');
 
+    const [videoname, setvideoname] = useState('');
+    const [childFolderName, setchildFolderName] = useState('');
+
     var [setImages, setImage] = useState([]);
 
     const handleImageChange = (e) => {
@@ -50,7 +53,35 @@ function PostAllcou(){
         //         alert("Error adding product");
         //     });
     }
+
+    function Video_St(){
+
+        var datasp = {videoname,childFolderName}
+           const formData = new FormData();
+       
+               formData.append("fail", setImages);
+               formData.append(
+                   "Course",
+                   new Blob([JSON.stringify(datasp)], { type: "application/json" })
+               );
+       
+               axios
+                   .post("http://localhost:8080/api/public/video_data", formData, {
+                       headers: {
+                           "Content-Type": "multipart/form-data",
+                       },
+                   })
+                   .then((response) => {
+                       console.log("Product added successfully:", response.data);
+                       alert("Product added successfully");
+                   })
+                   .catch((error) => {
+                       console.error("Error adding product:", error);
+                       alert("Error adding product");
+                   });
+       }
     return(
+        <div>
         <div>
             <input type="text" placeholder="course_name" value={course_name} onChange={(e) => setcourse_name(e.target.value)} />
                 <input type="text" placeholder="course_Provider" value={course_Provider} onChange={(e) => setcourse_Provider(e.target.value)} />
@@ -64,6 +95,13 @@ function PostAllcou(){
 
                 <input className="border-2 rounded-[3px] border-black" type="file" onChange={handleImageChange}></input>
                 <button onClick={submitHandler}>Login</button>
+            </div>
+            <div>
+            <input type="text" placeholder="video_name" value={videoname} onChange={(e) => setvideoname(e.target.value)} />
+            <input type="text" placeholder="video_namechalde" value={childFolderName} onChange={(e) => setchildFolderName(e.target.value)} />
+            <input className="border-2 rounded-[3px] border-black" type="file" onChange={handleImageChange}></input>
+            <button onClick={Video_St}>Login</button>
+            </div>
             </div>
     )
 }
