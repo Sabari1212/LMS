@@ -129,7 +129,7 @@ const Login = () => {
         <h1 className='font-bold text-green-500'>{Togal.data}</h1>}
       <label className='font-bold'>Enter OTP</label>
       <input type='text' placeholder='Enter your Otp' className='border-gray-300 border-1 h-[30px] p-2 rounded-md' value={otp} onChange={(e) => setOtp(e.target.value)}></input>
-      <button className='bg-blue-800 p-2 w-max rounded-md text-white ml-auto hover:scale-105 duration-500 cursor-pointer active:bg-green-600' onClick={handleSignup}>Submit</button>
+      <button className='bg-blue-600 p-2 w-max rounded-md text-white ml-auto hover:scale-105 duration-500 cursor-pointer active:bg-blue-900' onClick={handleSignup}>Submit</button>
       </div>
     }
 
@@ -144,7 +144,7 @@ const Login = () => {
         <input type='password' placeholder='Enter your password'  className='border-gray-300 border-1 h-[30px] p-2 rounded-md' value={password} onChange={(e) => setpassword(e.target.value)}></input>
         <div className='flex justify-between py-5'>
         <button onClick={()=>navigate("/forgetpw")} className='text-right text-blue-700 font-bold hover:scale-105 duration-500 cursor-pointer active:text-green-600' >Forget Password?</button>
-        <button className='bg-blue-800 p-2 w-max rounded-md text-white hover:scale-105 duration-500 cursor-pointer active:bg-green-600  ' onClick={handleLogin}>Login</button>
+        <button className='bg-blue-600 p-2 w-max rounded-md text-white hover:scale-105 duration-500 cursor-pointer active:bg-blue-900  ' onClick={handleLogin}>Login</button>
         </div>
 
     </div>

@@ -146,7 +146,7 @@ const handleSearch = (id) => {
       <div className='flex flex-wrap justify-center overflow-y-auto h-[330px] mt-10'>
 
         {backdata.map((Alldata) => (
-          <div onClick={() => handleSearch(Alldata.id)}  className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
+          <div onClick={() => handleSearch(Alldata.id)}  className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 m-2 p-2 rounded-md active:hover:scale-90 shadow-md shadow-black '>
 
 
             <img className='h-32 w-72 mx-auto border-1 border-gray-600' src={`data:${Alldata.course_image_name};base64,${Alldata.data}`}></img>
@@ -159,7 +159,7 @@ const handleSearch = (id) => {
           </div>
         ))}
 
-        <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-2xl shadow-black m-2 p-2 rounded-md '>
+        <div className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 shadow-md shadow-black m-2 p-2 rounded-md '>
 
           <img className='h-40 w-72 mx-auto border-1 border-gray-600' src={course}></img>
           <h1 className='text-left font-bold'>Mern stack development react,node etc</h1>

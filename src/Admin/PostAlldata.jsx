@@ -81,10 +81,10 @@ function PostAllcou(){
                    });
        }
     return(
-        <div>
-        <div>
+        <div className="flex flex-col justify-between items-center gap-10 p-10">
+        <div className="lg:w-1/2 flex flex-col gap-5 admin">
             <input type="text" placeholder="course_name" value={course_name} onChange={(e) => setcourse_name(e.target.value)} />
-                <input type="text" placeholder="course_Provider" value={course_Provider} onChange={(e) => setcourse_Provider(e.target.value)} />
+                <input  type="text" placeholder="course_Provider" value={course_Provider} onChange={(e) => setcourse_Provider(e.target.value)} />
                 <input type="text" placeholder="price" value={price} onChange={(e) => setprice(e.target.value)} />
                 <input type="text" placeholder="deuration" value={deuration} onChange={(e) => setdeuration(e.target.value)} />
                 <input type="text" placeholder="description" value={description} onChange={(e) => setdescription(e.target.value)} />
@@ -94,13 +94,13 @@ function PostAllcou(){
                 <input type="text" placeholder="what_you_learn4" value={what_you_learn4} onChange={(e) => setwhat_you_learn4(e.target.value)} />
 
                 <input className="border-2 rounded-[3px] border-black" type="file" onChange={handleImageChange}></input>
-                <button onClick={submitHandler}>Login</button>
+                <button onClick={submitHandler} className="bg-blue-500 p-2 w-max mx-auto rounded-sm">Login</button>
             </div>
-            <div>
+            <div className="lg:w-1/2 flex flex-col gap-5 admin">
             <input type="text" placeholder="video_name" value={videoname} onChange={(e) => setvideoname(e.target.value)} />
             <input type="text" placeholder="video_namechalde" value={childFolderName} onChange={(e) => setchildFolderName(e.target.value)} />
             <input className="border-2 rounded-[3px] border-black" type="file" onChange={handleImageChange}></input>
-            <button onClick={Video_St}>Login</button>
+            <button onClick={Video_St} className="bg-blue-500 p-2 w-max mx-auto rounded-sm">Login</button>
             </div>
             </div>
     )

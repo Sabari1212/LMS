@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { Accordion, AccordionSummary, AccordionDetails, Typography, List, ListItem, ListItemIcon } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
@@ -16,6 +16,9 @@ const CourseVideo = () => {
 
   const [showButton, setShowButton] = useState(false);
 
+  // const playerRef = useRef(null);
+  // const [aspectRatio, setAspectRatio] = useState(null);
+
   const handleVideoEnd = () => {
     setShowButton(true);
   };
@@ -23,7 +26,6 @@ const CourseVideo = () => {
 
   useEffect(() => {
     getrallcour()
-   
   }, [])
 
   async function getrallcour() {
@@ -41,38 +43,64 @@ const CourseVideo = () => {
  async function Mapdata(id) {
     for (var i = 0; i < Allvideodata.length; i++) {
       if (Allvideodata[i].id === id) {
-        
+       
         const Tocken = Getlocalstorage()
        
         var prefoldname=Allvideodata[i].videoname
         var chalfoldname=Allvideodata[i].childFolderName
         var url=Allvideodata[i].videourl
         var getvideourl={prefoldname,chalfoldname,url,Tocken}
-       
+
+      
+          
+          setVideoUrl(`http://localhost:8080/api/public/Getvideo_data?parentFolderName=${prefoldname}&childFolderName=${chalfoldname}&url=${url}` , {headers: { Authorization: `Bearer ${Tocken}`},});
+      
        // var getUrl=await Getonevideo(getvideourl)
-        setVideoUrl(`http://localhost:8080/api/public/Getvideo_data?parentFolderName=${prefoldname}&childFolderName=${chalfoldname}&url=${url}` , {headers: { Authorization: `Bearer ${Tocken}`},});
+       
         // console.log(getUrl)
         //setVideoUrl(getUrl)
       }
     }
   }
 
+  const groupedData=Allvideodata.reduce((acc,item)=>{
+    if(!acc[item.childFolderName]){
+      acc[item.childFolderName]=
+      {
+        childFolderName:item.childFolderName,videos:[]
+      }
+    }
+      acc[item.childFolderName].videos.push({
+        videoname:item.videoname,
+        videoAtername:item.videoAtername,
+        videourl:item.videourl,
+        id:item.id
+
+      });
+      return acc;
+    },{});
+  const result=Object.values(groupedData)
+  console.log(result)
+
   return (
     <div className='lg:flex justify-around'>
 
       <div className="mt-16">
-        {/* <img className='h-[400px] w-[800px]' src={course}></img> */}
-        <ReactPlayer url={videoUrl} controls  onEnded={handleVideoEnd} />
+
+        {videoUrl ? 
+         <ReactPlayer url={videoUrl} controls  onEnded={handleVideoEnd}/>:
+         <img className='h-[400px] w-[800px]' src={course}></img>
+         }
         {showButton && (<div className="justify-self-end mt-8"><button className="bg-blue-600 p-2 px-4 font-bold text-white hover:scale-105 duration-500 rounded-md active:bg-blue-900" onClick={()=>setShowButton(false)}>Next</button></div>)}
       </div>
       <div>
 
         <div style={{ width: "600px", margin: "20px auto", fontFamily: "Arial, sans-serif" }}>
           <h2 style={{ textAlign: "left", fontWeight: "bold", marginBottom: "10px" }}>{users[0].course_name}</h2>
-          {Allvideodata.map((module) => (
+          {result.map((module) => (
             // .filter(item => item.childFolderName!=="html2") 
 
-            <Accordion key={module.id} sx={{ backgroundColor: "#f9f9f9", boxShadow: "none", borderBottom: "1px solid #ddd" }}>
+            <Accordion  sx={{ backgroundColor: "#f9f9f9", boxShadow: "none", borderBottom: "1px solid #ddd" }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ fontWeight: "bold", backgroundColor: "#fff" }}>
                 <Typography variant="h6">{module.childFolderName}</Typography>
               </AccordionSummary>
@@ -80,8 +108,8 @@ const CourseVideo = () => {
               <AccordionDetails sx={{ padding: "10px 20px", backgroundColor: "#f9f9f9" }}>
                 <List>
                   {Allvideodata.filter(item => item.childFolderName === module.childFolderName).map((lecture, index) => (
-                    <ListItem key={index} sx={{ display: "flex", justifyContent: "space-between", padding: "8px 0" }}>
-                      <div style={{ display: "flex", alignItems: "center" }} onClick={() => Mapdata(lecture.id)} className="hover:cursor-pointer hover:scale-95 duration-500">
+                    <ListItem key={index} sx={{ display: "f lex", justifyContent: "space-between", padding: "8px 0" }}>
+                      <div style={{ display: "flex", alignItems: "center" }} onClick={() => Mapdata(lecture.id)} className="hover:cursor-pointer hover:scale-95 duration-500 active:hover:scale-100">
                         <ListItemIcon sx={{ minWidth: "30px", color: "#555" }} >
                           {"video" === "video" ? <VideoLibraryIcon /> : <DescriptionIcon />}
                         </ListItemIcon>
