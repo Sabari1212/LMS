@@ -4,6 +4,7 @@ import { setUsers } from '../slice/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { Loginbk,Sendotp ,Register} from '../Spring'
 import { StroageTockin } from '../localStroage'
+import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () => {
     const [alert,setAlert]=useState(false)
@@ -22,19 +23,32 @@ const Login = () => {
     const [role,setrole]=useState("USER");
     const [Message,setMessage]=useState("");
     const [verfidOTP,setverfidOTP]=useState("");
+
   
     const handleLogin = async (e) => {
         e.preventDefault();
         try{
              const auth = { username, password }; // Encode username:password
+             setAlert(true);
+            
           var respon =await Loginbk(auth);
           if(respon.data){
+            toast.success("Oomba poda vulla");
             console.log(respon.data);
+          
             StroageTockin(respon.data)
-            navigate("/userdashboard")
+            setTimeout(() => {
+                navigate("/userdashboard");
+              }, 5000);
+    
+            
           }
         }catch(error){
-            console.log(error.message);
+            toast.warn("Password olunga podra punda");
+            setTimeout(() => {
+                console.log(error.message);
+              }, 5000);
+
             // alert(error.message);
         } 
         //   console.log(auth);
@@ -149,14 +163,17 @@ const Login = () => {
 
     </div>
 }
+<ToastContainer position="top-center"/>
 
-{alert && <div className='absolute top-0 left-auto w-full md:w-1/3 h-1/5 border-3 border-gray-300 bg-white rounded-md flex flex-col justify-around p-5 shadow-md shadow-black '>
-    <h1 className='text-xl text-blue-800 text-left'>Registered SuccessFully</h1>
-    <button className='ml-auto w-max bg-blue-800 p-2 px-3 rounded-md text-white border-black border-2' onClick={()=>setAlert(false)}>Ok</button>
+{/* <div className='absolute top-0 left-auto w-full md:w-1/3 h-1/5 border-3 border-gray-300 bg-white rounded-md flex flex-col justify-around p-5 shadow-md shadow-black '> */}
+    {/* <h1 className='text-xl text-blue-800 text-left'>Registered SuccessFully</h1>
+    <button className='ml-auto w-max bg-blue-800 p-2 px-3 rounded-md text-white border-black border-2' onClick={()=>setAlert(false)}>Ok</button> */}
+      
+   
 
 
-    </div>
-}
+    {/* </div> */}
+
 
 
     </div>

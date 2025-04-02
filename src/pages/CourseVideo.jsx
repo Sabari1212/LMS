@@ -46,18 +46,19 @@ const CourseVideo = () => {
        
         const Tocken = Getlocalstorage()
        
-        var prefoldname=Allvideodata[i].videoname
-        var chalfoldname=Allvideodata[i].childFolderName
-        var url=Allvideodata[i].videourl
-        var getvideourl={prefoldname,chalfoldname,url,Tocken}
+        // var prefoldname=
+        // var chalfoldname=
+        // var url=
+        // var getvideourl={prefoldname,chalfoldname,url,Tocken}
 
+        var getUrl= Getonevideo()
+
+        setVideoUrl(getUrl+`/public/Getvideo_data?parentFolderName=${Allvideodata[i].videoname}&childFolderName=${Allvideodata[i].childFolderName}&url=${Allvideodata[i].videourl}`,{headers: { Authorization: `Bearer ${Tocken}`},})
+         // setVideoUrl(`http://localhost:8080/api/public/Getvideo_data?parentFolderName=${prefoldname}&childFolderName=${chalfoldname}&url=${url}` , {headers: { Authorization: `Bearer ${Tocken}`},});
       
-          
-          setVideoUrl(`http://localhost:8080/api/public/Getvideo_data?parentFolderName=${prefoldname}&childFolderName=${chalfoldname}&url=${url}` , {headers: { Authorization: `Bearer ${Tocken}`},});
-      
-       // var getUrl=await Getonevideo(getvideourl)
+       // 
        
-        // console.log(getUrl)
+         console.log(getUrl)
         //setVideoUrl(getUrl)
       }
     }
