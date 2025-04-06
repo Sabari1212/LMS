@@ -44,7 +44,7 @@ const Login = () => {
             
           }
         }catch(error){
-            toast.warn("Password olunga podra punda");
+            toast.error("Password olunga podra punda");
             setTimeout(() => {
                 console.log(error.message);
               }, 5000);
@@ -163,7 +163,7 @@ const Login = () => {
 
     </div>
 }
-<ToastContainer position="top-center"/>
+<ToastContainer position="top-center" />
 
 {/* <div className='absolute top-0 left-auto w-full md:w-1/3 h-1/5 border-3 border-gray-300 bg-white rounded-md flex flex-col justify-around p-5 shadow-md shadow-black '> */}
     {/* <h1 className='text-xl text-blue-800 text-left'>Registered SuccessFully</h1>
