@@ -1,11 +1,11 @@
 import axios from "axios";
-var url = "http://localhost:8080/api";
+var url = "http://localhost:9090/api";
 
 
 function PostAllcourse(formData){
     return (
         axios
-        .post("http://localhost:8080/api/public/postCoruse_data", formData, {
+        .post("http://localhost:9090/api/public/postCoruse_data", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -26,10 +26,10 @@ function GetAllcourse() {
     return axios.get(url + "/public/getCoruse_data");
 }
 function Getuser1(token) { //exem
-    return  axios.get("http://localhost:8080/api/user/get", {headers: { Authorization: `Bearer ${token}`},});
+    return  axios.get("http://localhost:9090/api/user/get", {headers: { Authorization: `Bearer ${token}`},});
 }
 function Getuser2(token) { //exem
-    return axios.get("http://localhost:8080/api/user2/get", {headers: { Authorization: `Bearer ${token}`},});
+    return axios.get("http://localhost:9090/api/user2/get", {headers: { Authorization: `Bearer ${token}`},});
     
 }
 function Getvideodata(token_and_videoname) { 
