@@ -33,7 +33,7 @@ const Login = () => {
             
           var respon =await Loginbk(auth);
           if(respon.data){
-            toast.success("Oomba poda vulla");
+            toast.success("Login SuccessFully");
             console.log(respon.data);
           
             StroageTockin(respon.data)
@@ -44,7 +44,7 @@ const Login = () => {
             
           }
         }catch(error){
-            toast.error("Password olunga podra punda");
+            toast.error("Incorrect Password");
             setTimeout(() => {
                 console.log(error.message);
               }, 5000);

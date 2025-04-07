@@ -64,8 +64,9 @@ export default function CourseCreator() {
         percentage: 0,
         certificateAvailable: false
       }
-    };
-    await axios.post(`${API_BASE}/courses`, course);
+    };                     
+    //       /public/courses
+    await axios.post(`${API_BASE}/public/courses`, course);
     alert("Course created!");
     setCourseName("");
     setModules([]);
