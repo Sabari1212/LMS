@@ -29,32 +29,29 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        try {
-            const auth = { username, password }; // Encode username:password
-            setAlert(true);
-
-            var respon = await Loginbk(auth);
-            if (respon.data) {
-                toast.success("Oomba poda vulla");
-                console.log(respon.data);
-
-                StroageTockin(respon.data)
-                setTimeout(() => {
-                    navigate("/userdashboard");
-                }, 5000);
-
-
-            }
-        } catch (error) {
-            toast.warn("Password olunga podra punda");
+        try{
+             const auth = { username, password }; // Encode username:password
+             setAlert(true);
+            
+          var respon =await Loginbk(auth);
+          if(respon.data){
+            toast.success("Login Successful");
+            console.log(respon.data);
+          
+            StroageTockin(respon.data)
             setTimeout(() => {
-                console.log(error.message);
-            }, 5000);
-
-            // alert(error.message);
+                navigate("/userdashboard");
+              }, 5000);
+    
+            
+          }
+        }catch(error){
+            toast.error("Username or Password Incorrect");
+            console.log(error.message);
         }
         //   console.log(auth);
     }
+
     // const [signupForm,setSignupForm]=useState({
     //     email:"",
     //     name:"",
@@ -177,11 +174,24 @@ const Login = () => {
                         <button className='bg-blue-600 p-2 w-max rounded-md text-white hover:scale-105 duration-500 cursor-pointer active:bg-blue-900  ' onClick={handleLogin}>Login</button>
                     </div>
 
-                </div>
-            }
-            <ToastContainer position="top-center" />
-        </div>
-    )
+    </div>
+}
+<ToastContainer position="top-center" />
+
+{/* <div className='absolute top-0 left-auto w-full md:w-1/3 h-1/5 border-3 border-gray-300 bg-white rounded-md flex flex-col justify-around p-5 shadow-md shadow-black '> */}
+    {/* <h1 className='text-xl text-blue-800 text-left'>Registered SuccessFully</h1>
+    <button className='ml-auto w-max bg-blue-800 p-2 px-3 rounded-md text-white border-black border-2' onClick={()=>setAlert(false)}>Ok</button> */}
+      
+   
+
+
+    {/* </div> */}
+
+
+
+    </div>
+  )
+  
 }
 
 export default Login
