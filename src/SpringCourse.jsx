@@ -36,6 +36,14 @@ function Getvideodata(token_and_videoname) {
     return axios.get(url+`/user/getvideodata/${token_and_videoname.Core_name}`, {headers: { Authorization: `Bearer ${token_and_videoname.tocken}`},});
     
 }
+
+function Getpayonedata(idemail) { 
+    console.log(idemail.tocken)
+    return axios.get(url+`/user/oneidandemail?id=${idemail.id}&email=${idemail.email}`, {headers: { Authorization: `Bearer ${idemail.tocken}`},});
+   
+}
+
+// http://localhost:9090/api/user/oneidandemail?id=1&email=sanjaykumarmtt%40gmail.com
 function Getonevideo() { 
     
     return url
@@ -45,4 +53,4 @@ function Getonevideo() {
 }//http://localhost:8080/api/public/Getvideo_data?parentFolderName=${prefoldname}&childFolderName=${chalfoldname}&url=${url}
 //http://localhost:8080/api/public/Getvideo_data?parentFolderName=HTML&childFolderName=html2&url=HTML_6-HTML-Lists.mp4
 
-export {GetAllcourse,PostAllcourse,Getuser1,Getuser2,Getvideodata,Getonevideo}
+export {GetAllcourse,PostAllcourse,Getuser1,Getuser2,Getvideodata,Getonevideo,Getpayonedata}

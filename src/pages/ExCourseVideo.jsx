@@ -1,282 +1,221 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { saveAs } from "file-saver";
-import axios from "axios";
-import { IoChevronDownCircleOutline, IoChevronUpCircleOutline } from "react-icons/io5";
-import ReactPlayer from 'react-player';
-const API_BASE = "http://localhost:8080/api";
-const USER_ID = "user1";
-
-export default function ExCourseVideo() {
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSelector } from "react-redux";
+import { Getlocalstorage } from '../localStroage';
+import { Getvideodata } from '../SpringCourse';
+const ExCourseVideo = () => {
+  const users = useSelector((state) => state.userInfo.users)
   const [course, setCourse] = useState(null);
-  const [currentModule, setCurrentModule] = useState(0);
-  const [currentVideo, setCurrentVideo] = useState(0);
-  const [completed, setCompleted] = useState([]);
+  const [currentModuleIndex, setCurrentModuleIndex] = useState(0);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [completedVideos, setCompletedVideos] = useState([]);
+  const [videoDurations, setVideoDurations] = useState({});
   const [showQuiz, setShowQuiz] = useState(false);
-  const [quizAnswers, setQuizAnswers] = useState({});
-  const [error, setError] = useState("");
-  const [durations, setDurations] = useState({});
-  const [expandedModules, setExpandedModules] = useState({});
-  const videoRef = useRef(null);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [quizResult, setQuizResult] = useState(null);
+  const [certificateUnlocked, setCertificateUnlocked] = useState(false);
 
   useEffect(() => {
-    fetchCourse();
-    fetchProgress();
+    getonevideo()
   }, []);
 
-  const fetchCourse = async () => {
-    const res = await axios.get(`http://localhost:8080/api/courses/1`);
-    setCourse(res.data);
-    preloadDurations(res.data);
-    console.log(res.data);
+  async function getonevideo(){
+    console.log(users)
+
+    var tocken = Getlocalstorage();
+    var Core_name = users
+    var toc_and_videone = { tocken, Core_name }
+
+    var getdatavideo =await Getvideodata(toc_and_videone);
+    // setAllvideodata(getdatavideo.data)
+    console.log(getdatavideo.data)
+    setCourse(getdatavideo .data);
+  }
+
+
+
+
+  useEffect(() => {
+    if (course) {
+      const allVideos = course.modual.flatMap((mod) => mod.videos);
+      const total = allVideos.length;
+      const completed = completedVideos.length;
+      const percentage = Math.round((completed / total) * 100);
+      if (percentage === 100) {
+        setCertificateUnlocked(true);
+      }
+    }
+  }, [completedVideos, course]);
+
+  const handleVideoEnded = () => {
+    const currentVideo = course.modual[currentModuleIndex].videos[currentVideoIndex];
+    if (!completedVideos.includes(currentVideo.id)) {
+      setCompletedVideos((prev) => [...prev, currentVideo.id]);
+    }
+    const currentModule = course.modual[currentModuleIndex];
+    const allCompleted = currentModule.videos.every((vid) => completedVideos.includes(vid.id) || vid.id === currentVideo.id);
+    if (allCompleted) setShowQuiz(true);
   };
 
-  const fetchProgress = async () => {
-    const res = await axios.get(`${API_BASE}/progress/${USER_ID}`);
-    setCompleted(res.data || []);
+  const handleAnswer = (qid, option) => {
+    setSelectedAnswers({ ...selectedAnswers, [qid]: option });
   };
 
-  const saveProgress = async (key) => {
-    const newCompleted = [...completed, key];
-    setCompleted(newCompleted);
-    await axios.put(`${API_BASE}/progress`, {
-      userId: USER_ID,
-      videoKey: key
+  const submitQuiz = () => {
+    const questions = course.modual[currentModuleIndex].qush;
+    let correct = 0;
+    questions.forEach((q) => {
+      if (selectedAnswers[q.id] === q[`option${q.anser}`]) {
+        correct++;
+      }
+    });
+    setQuizResult(`${correct}/${questions.length} correct`);
+  };
+
+  const goToVideo = (mIndex, vIndex) => {
+    setCurrentModuleIndex(mIndex);
+    setCurrentVideoIndex(vIndex);
+    setShowQuiz(false);
+    setSelectedAnswers({});
+    setQuizResult(null);
+  };
+
+  const isVideoLocked = (mIndex, vIndex) => {
+    const prev = course.modual[mIndex].videos[vIndex - 1];
+    if (vIndex === 0 && mIndex === 0) return false;
+    if (vIndex > 0) return !completedVideos.includes(prev.id);
+    const prevMod = course.modual[mIndex - 1];
+    return !prevMod.videos.every((v) => completedVideos.includes(v.id));
+  };
+
+  const fetchVideoDuration = (url, id) => {
+    const video = document.createElement('video');
+    video.src = url;
+    video.addEventListener('loadedmetadata', () => {
+      const duration = Math.floor(video.duration);
+      const minutes = Math.floor(duration / 60);
+      const seconds = duration % 60;
+      setVideoDurations((prev) => ({ ...prev, [id]: `${minutes}:${seconds < 10 ? '0' : ''}${seconds}` }));
     });
   };
 
-  const preloadDurations = (course) => {
-    course.modules.forEach((mod, mIdx) => {
-      mod.videos.forEach((vid, vIdx) => {
-        const video = document.createElement("video");
-        video.src = vid.url;
-        video.onloadedmetadata = () => {
-          const dur = video.duration;
-          const min = Math.floor(dur / 60);
-          const sec = Math.floor(dur % 60).toString().padStart(2, "0");
-          setDurations((prev) => ({
-            ...prev,
-            [`${mIdx}-${vIdx}`]: `${min}:${sec}`
-          }));
-        };
+  useEffect(() => {
+    if (course) {
+      course.modual.forEach((mod) => {
+        mod.videos.forEach((v) => {
+          if (!videoDurations[v.id]) fetchVideoDuration(v.videourl, v.id);
+        });
       });
-    });
-  };
-
-  const handleVideoEnd = () => {
-    const key = `${currentModule}-${currentVideo}`;
-    console.log(key)
-    if (!completed.includes(key)) {
-      saveProgress(key);
     }
+  }, [course]);
 
-    const isModuleCompleted = course.modules[currentModule].videos.every((_, idx) =>
-      completed.includes(`${currentModule}-${idx}`) || idx === currentVideo
-    );
+  if (!course) return <div className="text-center p-4">Loading...</div>;
 
-    if (isModuleCompleted) setShowQuiz(true);
-  };
-
-  const handleQuizSubmit = () => {
-    const questions = course.modules[currentModule].quiz;
-    const allCorrect = questions.every(
-      (q, idx) => quizAnswers[idx] === q.answerIndex
-    );
-
-    if (!allCorrect) {
-      setError("Some answers are incorrect. Try again.");
-      return;
-    }
-
-    setShowQuiz(false);
-    setQuizAnswers({});
-    setError("");
-  };
-
-  const downloadCertificate = () => {
-    const text = `Certificate of Completion\n\nThis certifies you completed ${course.title}\n\nProgress: 100%`;
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "certificate.txt");
-  };
-
-  const goToVideo = (m, v) => {
-    setCurrentModule(m);
-    setCurrentVideo(v);
-    setShowQuiz(false);
-    setError("");
-  };
-
-  if (!course) return <div className="p-6 text-white">Loading...</div>;
-
-  const total = course.modules.reduce((acc, m, i) => acc + m.videos.length, 0);
-  const percent = Math.floor((completed.length / total) * 100);
-  const isCourseCompleted = completed.length === total;
-  const current = course.modules[currentModule].videos[currentVideo];
+  const currentVideo = course.modual[currentModuleIndex].videos[currentVideoIndex];
 
   return (
-    <div className="p-6 max-w-6xl mx-auto text-white bg-gray-900 min-h-screen">
-      <h1 className="text-4xl font-bold mb-6 text-center">{course.courseName}</h1>
+    <div className="flex h-screen">
+      <div className="w-3/4 p-4">
+        <h2 className="text-xl font-semibold mb-2">{currentVideo.videoname}</h2>
+        <video
+          key={currentVideo.id}
+          src={currentVideo.videourl}
+          controls
+          onEnded={handleVideoEnded}
+          className="w-full h-[400px] rounded-xl shadow-lg"
+        ></video>
 
-      <div className="mb-6">
-        <p className="mb-2">Progress: {percent}%</p>
-        <div className="w-full h-3 bg-gray-700 rounded-full">
-          <motion.div
-            className="h-3 bg-green-500 rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${percent}%` }}
-            transition={{ duration: 0.5 }}
-          />
+        <div className="flex justify-between mt-4">
+          <button
+            onClick={() => goToVideo(currentModuleIndex, currentVideoIndex - 1)}
+            disabled={currentVideoIndex === 0 && currentModuleIndex === 0}
+            className="bg-gray-700 text-white px-4 py-2 rounded disabled:opacity-50"
+          >
+            Previous
+          </button>
+
+          <button
+            onClick={() => goToVideo(currentModuleIndex, currentVideoIndex + 1)}
+            disabled={
+              currentVideoIndex === course.modual[currentModuleIndex].videos.length - 1 ||
+              isVideoLocked(currentModuleIndex, currentVideoIndex + 1)
+            }
+            className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
+
+        {showQuiz && (
+          <div className="mt-6 bg-white bg-opacity-10 p-4 rounded-xl shadow-xl">
+            <h3 className="text-lg font-bold mb-2">Module Quiz</h3>
+            {course.modual[currentModuleIndex].qush.map((q) => (
+              <div key={q.id} className="mb-4">
+                <p className="mb-1 font-medium">{q.question}</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {[1, 2, 3, 4].map((num) => (
+                    <label key={num} className="flex items-center space-x-2">
+                      <input
+                        type="radio"
+                        name={`q-${q.id}`}
+                        value={q[`option${num}`]}
+                        onChange={() => handleAnswer(q.id, q[`option${num}`])}
+                      />
+                      <span>{q[`option${num}`]}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <button onClick={submitQuiz} className="mt-2 bg-green-500 text-white px-4 py-2 rounded">Submit Quiz</button>
+            {quizResult && <p className="mt-2 font-semibold">Result: {quizResult}</p>}
+          </div>
+        )}
+
+        {certificateUnlocked && (
+          <a
+            href="data:text/plain;charset=utf-8,You%20have%20completed%20the%20course!"
+            download="certificate.txt"
+            className="block mt-6 text-center bg-purple-600 text-white py-2 px-4 rounded shadow-lg"
+          >
+            🎓 Download Certificate
+          </a>
+        )}
       </div>
 
-      <div className="flex gap-8">
-        <div className="w-2/3">
-          <video
-            ref={videoRef}
-            controls
-            onEnded={handleVideoEnd}
-            className="w-full rounded-lg shadow-lg"
-          >
-            <source src={current.url} type="video/mp4" />
-          </video>
-
-          <div className="flex justify-between mt-4">
-            <button
-              className="px-4 py-2 bg-gray-700 rounded"
-              onClick={() =>
-                currentVideo > 0
-                  ? goToVideo(currentModule, currentVideo - 1)
-                  : currentModule > 0 &&
-                    goToVideo(currentModule - 1, course.modules[currentModule - 1].videos.length - 1)
-              }
-            >
-              Previous
-            </button>
-            <button
-              className="px-4 py-2 bg-gray-700 rounded"
-              onClick={() =>
-                currentVideo < course.modules[currentModule].videos.length - 1
-                  ? goToVideo(currentModule, currentVideo + 1)
-                  : currentModule < course.modules.length - 1 && goToVideo(currentModule + 1, 0)
-              }
-            >
-              Next
-            </button>
-          </div>
-
-          <h2 className="text-xl font-semibold mt-4">{current.title}</h2>
-
-          <AnimatePresence>
-            {showQuiz && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="mt-4 p-4 bg-gray-800 rounded shadow"
-              >
-                {course.modules[currentModule].quiz.map((q, i) => (
-                  <div key={i} className="mb-4">
-                    <p className="mb-2 font-medium">{q.question}</p>
-                    {q.options.map((opt, idx) => (
-                      <label key={idx} className="block">
-                        <input
-                          type="radio"
-                          name={`quiz-${i}`}
-                          value={idx}
-                          checked={quizAnswers[i] === idx}
-                          onChange={() => setQuizAnswers({ ...quizAnswers, [i]: idx })}
-                          className="mr-2"
-                        />
-                        {opt}
-                      </label>
-                    ))}
-                  </div>
-                ))}
-                {error && <p className="text-red-500 text-sm">{error}</p>}
-                <button
-                  onClick={handleQuizSubmit}
-                  className="mt-2 px-4 py-2 bg-green-600 text-white rounded"
+      <div className="w-1/4 border-l p-4 overflow-y-auto">
+        <h2 className="text-lg font-bold mb-2">{course.coursename.toUpperCase()}</h2>
+        <div className="mb-2 h-2 bg-gray-300 rounded">
+          <div
+            className="h-full bg-green-500 rounded"
+            style={{ width: `${Math.round((completedVideos.length / course.modual.flatMap(m => m.videos).length) * 100)}%` }}
+          ></div>
+        </div>
+        {course.modual.map((mod, mIndex) => (
+          <div key={mod.id} className="mb-4">
+            <h3 className="text-md font-semibold">{mod.modeulname}</h3>
+            <ul className="ml-4 mt-2 space-y-1">
+              {mod.videos.map((vid, vIndex) => (
+                <li
+                  key={vid.id}
+                  onClick={() => {
+                    if (!isVideoLocked(mIndex, vIndex)) goToVideo(mIndex, vIndex);
+                  }}
+                  className={`cursor-pointer px-2 py-1 rounded flex justify-between items-center ${
+                    currentVideo.id === vid.id ? 'bg-blue-100' : 'hover:bg-gray-100'
+                  } ${isVideoLocked(mIndex, vIndex) ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  Submit Quiz
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {isCourseCompleted && (
-            <motion.div
-              className="mt-6 p-4 bg-green-700 rounded text-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              <h3 className="text-lg font-bold mb-2">Congratulations!</h3>
-              <p>You have completed the course. Download your certificate.</p>
-              <button
-                className="mt-3 px-4 py-2 bg-white text-green-800 font-semibold rounded"
-                onClick={downloadCertificate}
-              >
-                Download Certificate
-              </button>
-            </motion.div>
-          )}
-        </div>
-
-        <div className="w-1/3">
-          {course.modules.map((mod, mIdx) => (
-            <div key={mIdx} className="mb-4">
-              <button
-                className="flex items-center justify-between w-full px-4 py-2 bg-gray-800 rounded"
-                onClick={() =>
-                  setExpandedModules((prev) => ({ ...prev, [mIdx]: !prev[mIdx] }))
-                }
-              >
-                <span className="font-semibold">{mod.title}</span>
-                {expandedModules[mIdx] ? (
-                  <IoChevronUpCircleOutline className="h-5 w-5" />
-                ) : (
-                  <IoChevronDownCircleOutline className="h-5 w-5" />
-                )}
-              </button>
-              <AnimatePresence>
-                {expandedModules[mIdx] && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden bg-gray-700 rounded mt-2"
-                  >
-                    {mod.videos.map((vid, vIdx) => {
-                      const key = `${mIdx}-${vIdx}`;
-                      const isCompleted = completed.includes(key);
-                      return (
-                        <div
-                          key={vIdx}
-                          className="px-4 py-2 border-b border-gray-600 flex justify-between items-center"
-                        >
-                          <div className="flex flex-col">
-                            <span>
-                              {vid.title} ({durations[key] || "0:00"})
-                            </span>
-                            <span className="text-sm text-gray-400">
-                              {isCompleted ? "✅ Completed" : "Locked"}
-                            </span>
-                          </div>
-                          <button
-                            onClick={() => goToVideo(mIdx, vIdx)}
-                            className="text-sm text-blue-300 underline"
-                          >
-                            {mIdx === currentModule && vIdx === currentVideo ? "Current" : "Play"}
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
-        </div>
+                  <span>{vid.videoname}</span>
+                  <span className="text-sm text-gray-600">{videoDurations[vid.id]}</span>
+                  {completedVideos.includes(vid.id) && <span className="ml-2">✅</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
+
+export default ExCourseVideo;

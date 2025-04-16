@@ -32,7 +32,7 @@ const CourseVideo = () => {
 
 
     var tocken = Getlocalstorage()
-    var Core_name = users[0].course_name;
+    var Core_name = users;
     var toc_and_videone = { tocken, Core_name }
 
     var getdatavideo = await Getvideodata(toc_and_videone);

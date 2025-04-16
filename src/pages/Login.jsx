@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setUsers } from '../slice/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { Loginbk, Sendotp, Register } from '../Spring'
-import { StroageTockin } from '../localStroage'
+import { StroageTockin,Stroageusername } from '../localStroage'
 import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () => {
@@ -30,6 +30,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try{
+            Stroageusername(username);
              const auth = { username, password }; // Encode username:password
              setAlert(true);
             
@@ -90,6 +91,7 @@ const Login = () => {
     async function handleSignup() {
 
         // dispatch(setUsers(signupForm))
+        
 
         try {
             var regAlldata = { name,phone, username, password, otp, role };

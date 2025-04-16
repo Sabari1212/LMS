@@ -4,10 +4,10 @@ import { CiHeart } from "react-icons/ci";
 import { IoCartOutline } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
-import { Getuser1, Getuser2, GetAllcourse } from '../SpringCourse';
+import { Getuser1, Getuser2, GetAllcourse, Getpayonedata } from '../SpringCourse';
 // import { GetAllcourse, Getuser1 } from '../SpringCourse';
 
-import { Getlocalstorage } from '../localStroage';
+import { Getlocalstorage, Getlocalstorageusername } from '../localStroage';
 import { useNavigate } from 'react-router-dom'
 import Logo1 from "../assets/Logo1.png"
 import Logo2 from "../assets/about.png"
@@ -48,20 +48,31 @@ const Dashboard = () => {
     }
   }
 
-const handleSearch = (id) => {
+  const handleSearch = async (id) => {
 
-    for (var i = 0; i <backdata.length; i++) {
-      if (backdata[i].id == id) {
+    // for (var i = 0; i <backdata.length; i++) {
+    //   if (backdata[i].id == id) {
+    var email = Getlocalstorageusername();
+    var tocken = Getlocalstorage();
+    var towdata = { id, email, tocken }
+    var resppay = await Getpayonedata(towdata)
 
-         dispatch(setUsers(backdata[i]))
+    dispatch(setUsers(id))
+    console.log(resppay)
+    if(resppay.data.orderStatus === "PAYMENT_COMPLETED"){
+      navigate("/course")
 
-        console.log(backdata[i])
-        navigate("/course")
-      }
-
+    }else{
+      navigate("/peymentpage")
+      // dispatch(setUsers(id))
+      // console.log(id)
     }
-  console.log(backdata)
-}
+
+    //   }
+
+    // }
+    console.log(id)
+  }
   return (
     <div>
 
@@ -146,7 +157,7 @@ const handleSearch = (id) => {
       <div className='flex flex-wrap justify-center overflow-y-auto h-[330px] mt-10'>
 
         {backdata.map((Alldata) => (
-          <div onClick={() => handleSearch(Alldata.id)}  className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 m-2 p-2 rounded-md active:hover:scale-90 shadow-md shadow-black '>
+          <div onClick={() => handleSearch(Alldata.id)} className=' hover: cursor-pointer md:w-1/6 h-[250px]  flex flex-col gap-1 hover:scale-105 duration-500 m-2 p-2 rounded-md active:hover:scale-90 shadow-md shadow-black '>
 
 
             <img className='h-32 w-72 mx-auto border-1 border-gray-600' src={`data:${Alldata.course_image_name};base64,${Alldata.data}`}></img>

@@ -20,7 +20,7 @@ function PostAllcou(){
 
     const handleImageChange = (e) => {
         setImage(e.target.files[0]);
-        
+          
     };
     
     const submitHandler = (event) => {
