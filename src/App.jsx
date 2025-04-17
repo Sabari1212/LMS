@@ -12,6 +12,9 @@ import CourseBuy from './pages/CourseBuy'
 import { PostAllcou } from './Admin/PostAlldata'
 import CourseVideo from './pages/CourseVideo'
 import ExCourseVideo from './pages/ExCourseVideo'
+import Peymentpage from './pages/peymentpage'
+import CourseCreator from './pages/CourseCreator'
+// import ExCourseVideo from './pages/ExCourseVideo'
 
 const App = () => {
   return (
@@ -27,7 +30,13 @@ const App = () => {
           <Route path ='/userdashboard' element={<UserLayout><Dashboard/></UserLayout>}></Route>
           <Route path ='/coursebuy' element={<UserLayout><CourseBuy/></UserLayout>}></Route>
           <Route path ='/admin' element={<UserLayout><PostAllcou/></UserLayout>}></Route>
+<<<<<<< HEAD
           <Route path ='/course' element={<UserLayout><CourseVideo/></UserLayout>}></Route>
+=======
+          <Route path ='/course' element={<UserLayout><ExCourseVideo/></UserLayout>}></Route>
+          <Route path ='/peymentpage' element={<UserLayout><Peymentpage/></UserLayout>}></Route>
+          <Route path ='/admin2' element={<UserLayout><CourseCreator/></UserLayout>}></Route>
+>>>>>>> 6f34a5aecf79babe14ee5b528b7e9439de4d08eb
 
         </Routes>
       </BrowserRouter>
